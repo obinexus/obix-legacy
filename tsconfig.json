@@ -1,86 +1,89 @@
 {
   "compilerOptions": {
-    /* Type Checking */
-    "strict": true,
-    "noImplicitAny": true,
-    "strictNullChecks": true,
-    "strictFunctionTypes": true,
-    "strictBindCallApply": true,
-    "strictPropertyInitialization": true,
-    "noImplicitThis": true,
-    "useUnknownInCatchVariables": true,
-    "alwaysStrict": true,
-    "noUnusedLocals": true,
-    "noUnusedParameters": true,
-    "exactOptionalPropertyTypes": true,
-    "noImplicitReturns": true,
-    "noFallthroughCasesInSwitch": true,
-    "noUncheckedIndexedAccess": true,
-    "noImplicitOverride": true,
-    "noPropertyAccessFromIndexSignature": true,
-    
-    /* Modules */
+    /* Core Configuration */
+    "target": "ES2018",
     "module": "ESNext",
     "moduleResolution": "node",
-    "resolveJsonModule": true,
+    "strict": true,
+    "declaration": true,
+    "sourceMap": true,
+    "outDir": "./dist",
+    
+    /* Path Mapping - Namespace Strategy */
     "baseUrl": ".",
     "paths": {
-      "@/*": ["src/*"],
+      /* Primary Namespace Mappings */
+      "@obix/*": ["src/*"],
+      "@obix/core/*": ["src/core/*"],
+      "@obix/cli/*": ["src/cli/*"],
+      
+      /* Core Module Mappings */
       "@core/*": ["src/core/*"],
-      "@core/ast/*": ["src/core/ast/*"],
       "@core/automaton/*": ["src/core/automaton/*"],
-      "@core/common/*": ["src/core/common/*"],
-      "@core/diff/*": ["src/core/diff/*"],
       "@core/dop/*": ["src/core/dop/*"],
       "@core/parser/*": ["src/core/parser/*"],
       "@core/validation/*": ["src/core/validation/*"],
-      "@api/*": ["src/api/*"],
-      "@api/functional/*": ["src/api/functional/*"],
-      "@api/hooks/*": ["src/api/hooks/*"],
-      "@api/oop/*": ["src/api/oop/*"],
-      "@api/shared/*": ["src/api/shared/*"],
-      "@api/utils/*": ["src/api/utils/*"],
+      "@core/ast/*": ["src/core/ast/*"],
+      "@core/common/*": ["src/core/common/*"],
+      "@core/ioc/*": ["src/core/ioc/*"],
+      "@core/policy/*": ["src/core/policy/*"],
+      "@core/vhtml/*": ["src/core/vhtml/*"],
+      "@core/vcss/*": ["src/core/vcss/*"],
+      "@core/vdom/*": ["src/core/vdom/*"],
+      
+      /* CLI Module Mappings */
+      "@cli/*": ["src/cli/*"],
+      "@cli/analyzer/*": ["src/cli/analyzer/*"],
+      "@cli/compiler/*": ["src/cli/compiler/*"],
+      "@cli/bundler/*": ["src/cli/bundler/*"],
+      "@cli/minifier/*": ["src/cli/minifier/*"],
+      "@cli/profiler/*": ["src/cli/profiler/*"],
+      "@cli/policy/*": ["src/cli/policy/*"],
+      
+      /* API Layer Mappings */
+      "@api/*": ["src/core/api/*"],
+      "@api/functional/*": ["src/core/api/functional/*"],
+      "@api/hooks/*": ["src/core/api/hooks/*"],
+      "@api/oop/*": ["src/core/api/shared/oop/*"],
+      "@api/shared/*": ["src/core/api/shared/*"],
+      "@api/utils/*": ["src/core/api/utils/*"],
+      
+      /* Specialized Module Mappings */
       "@parser/*": ["src/core/parser/*"],
       "@parser/html/*": ["src/core/parser/html/*"],
       "@parser/css/*": ["src/core/parser/css/*"],
       "@diff/*": ["src/core/diff/*"],
       "@factory/*": ["src/core/factory/*"],
       "@tools/*": ["src/tools/*"],
-      "@config/*": ["src/core/config/*"]
+      "@config/*": ["src/core/config/*"],
+      
+      /* Test Mappings */
+      "@test/*": ["tests/*"],
+      "@test/fixtures/*": ["tests/fixtures/*"],
+      "@test/unit/*": ["tests/unit/*"],
+      "@test/integration/*": ["tests/integration/*"]
     },
     
-    /* Emit */
-    "declaration": true,
-    "declarationMap": true,
-    "sourceMap": true,
-    "outDir": "./dist",
-    "removeComments": false,
-    "importHelpers": true,
-    
-    /* JavaScript Support */
-    "allowJs": false,
-    
-    /* Interop Constraints */
-    "isolatedModules": true,
-    "allowSyntheticDefaultImports": true,
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "types": ["jest", "node"],
-    
-    /* Language and Environment */
-    "target": "ES2018",
+    /* Library Support */
     "lib": ["DOM", "DOM.Iterable", "ESNext"],
+    "types": ["jest", "node"],
     "experimentalDecorators": true,
     "emitDecoratorMetadata": true,
     
-    /* Completeness */
-    "skipLibCheck": true
+    /* Strict Enforcement */
+    "forceConsistentCasingInFileNames": true,
+    "skipLibCheck": true,
+    "isolatedModules": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true
   },
+  
   "include": [
     "src/**/*.ts",
     "src/**/*.tsx",
     "src/**/*.d.ts"
   ],
+  
   "exclude": [
     "node_modules",
     "dist",
