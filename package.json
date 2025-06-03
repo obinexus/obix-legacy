@@ -55,7 +55,11 @@
     "release:prepare": "node scripts/release/prepare/index.js",
     "release:publish": "node scripts/release/publish/index.js",
     "cli": "ts-node src/cli/index.ts",
-    "test:ci": "jest --ci --coverage"
+    "test:ci": "jest --ci --coverage",
+     "analyze:modules": "bash scripts/analyze-modules.sh",
+    "validate:imports": "bash scripts/validate-imports.sh",
+    "prebuild": "npm run validate:imports && npm run analyze:modules",
+    "build:with-analysis": "npm run prebuild && npm run build"
   },
   "keywords": [
     "automaton",
