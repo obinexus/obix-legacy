@@ -59,7 +59,10 @@
      "analyze:modules": "bash scripts/analyze-modules.sh",
     "validate:imports": "bash scripts/validate-imports.sh",
     "prebuild": "npm run validate:imports && npm run analyze:modules",
-    "build:with-analysis": "npm run prebuild && npm run build"
+    "build:with-analysis": "npm run prebuild && npm run build",
+    "build:core": "rollup -c --environment TARGET:core",
+    "build:cli": "rollup -c --environment TARGET:cli",
+    "postbuild": "node scripts/verify-outputs.js"
   },
   "keywords": [
     "automaton",
