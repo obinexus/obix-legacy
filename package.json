@@ -28,7 +28,7 @@
     "env:setup": "source ./scripts/setup/env-setup.sh",
     "build": "npm run build:ts && npm run build:types",
     "build:ts": "ts-node scripts/build/compile/index.ts",
-    "build:types": "tsc --emitDeclarationOnly --outDir dist/types",
+    "build:types": "npx tsc --emitDeclarationOnly --outDir dist/types",
     "build:dev": "ts-node scripts/build/compile/index.ts --dev",
     "build:prod": "./scripts/setup/dev-workflow.sh build:prod",
     "test": "jest",
@@ -63,13 +63,15 @@
     "build:core": "rollup -c --environment TARGET:core",
     "build:cli": "rollup -c --environment TARGET:cli",
     "postbuild": "node scripts/verify-outputs.js",
-    "prebabel": "tsc --noEmit --skipLibCheck",
+    "prebabel": "npx tsc --noEmit --skipLibCheck",
     "validate:babel": "npm run prebabel && npx babel src --out-dir /tmp/babel-test --config-file ./babel.obix.config.js --dry-run",
     "prebuild:obix": "npm run validate:babel",
     "babel:validate": "npx babel --version && node -c babel.obix.config.js",
     "babel:test": "npm run prebabel && npx babel src/core/policy/decorators/generated --out-dir /tmp/test-babel --config-file ./babel.obix.config.js",
     "build:obix": "npm run babel:validate && npm run babel:test && npx babel src --out-dir dist/obix --config-file ./babel.obix.config.js --extensions \".ts,.tsx\"",
-    "build:policy": "npm run prebabel && npx babel src/core/policy --out-dir dist/policy --config-file ./babel.obix.config.js"
+    "build:policy": "npm run prebabel && npx babel src/core/policy --out-dir dist/policy --config-file ./babel.obix.config.js",
+    "build:cjs": "npx tsc --project tsconfig.cjs.json",
+    "build:esm": "npx tsc --project tsconfig.esm.json"
   },
   "keywords": [
     "automaton",
@@ -126,7 +128,7 @@
     "ts-jest": "^29.1.2",
     "ts-node": "^10.9.2",
     "typedoc": "^0.25.12",
-    "typescript": "^5.8.2"
+    "typescript": "^5.3.3"
   },
   "dependencies": {
     "@babel/runtime": "^7.23.5"
