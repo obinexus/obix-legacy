@@ -56,13 +56,17 @@
     "release:publish": "node scripts/release/publish/index.js",
     "cli": "ts-node src/cli/index.ts",
     "test:ci": "jest --ci --coverage",
-     "analyze:modules": "bash scripts/analyze-modules.sh",
+    "analyze:modules": "bash scripts/analyze-modules.sh",
     "validate:imports": "bash scripts/validate-imports.sh",
     "prebuild": "npm run validate:imports && npm run analyze:modules",
     "build:with-analysis": "npm run prebuild && npm run build",
     "build:core": "rollup -c --environment TARGET:core",
     "build:cli": "rollup -c --environment TARGET:cli",
-    "postbuild": "node scripts/verify-outputs.js"
+    "postbuild": "node scripts/verify-outputs.js",
+    "build:obix": "babel src --out-dir dist/obix --config-file ./babel.obix.config.js --extensions \".ts,.tsx,.obix.tsx\"",
+    "build:policy": "babel src/core/policy --out-dir dist/policy --config-file ./babel.obix.config.js",
+    "validate:babel": "babel src --out-dir /tmp/babel-test --config-file ./babel.obix.config.js --dry-run",
+    "prebuild:obix": "npm run validate:babel"
   },
   "keywords": [
     "automaton",
