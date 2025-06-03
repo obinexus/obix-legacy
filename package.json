@@ -63,10 +63,13 @@
     "build:core": "rollup -c --environment TARGET:core",
     "build:cli": "rollup -c --environment TARGET:cli",
     "postbuild": "node scripts/verify-outputs.js",
-    "build:obix": "babel src --out-dir dist/obix --config-file ./babel.obix.config.js --extensions \".ts,.tsx,.obix.tsx\"",
-    "build:policy": "babel src/core/policy --out-dir dist/policy --config-file ./babel.obix.config.js",
-    "validate:babel": "babel src --out-dir /tmp/babel-test --config-file ./babel.obix.config.js --dry-run",
-    "prebuild:obix": "npm run validate:babel"
+    "prebabel": "tsc --noEmit --skipLibCheck",
+    "validate:babel": "npm run prebabel && npx babel src --out-dir /tmp/babel-test --config-file ./babel.obix.config.js --dry-run",
+    "prebuild:obix": "npm run validate:babel",
+    "babel:validate": "npx babel --version && node -c babel.obix.config.js",
+    "babel:test": "npm run prebabel && npx babel src/core/policy/decorators/generated --out-dir /tmp/test-babel --config-file ./babel.obix.config.js",
+    "build:obix": "npm run babel:validate && npm run babel:test && npx babel src --out-dir dist/obix --config-file ./babel.obix.config.js --extensions \".ts,.tsx\"",
+    "build:policy": "npm run prebabel && npx babel src/core/policy --out-dir dist/policy --config-file ./babel.obix.config.js"
   },
   "keywords": [
     "automaton",
