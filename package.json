@@ -41,6 +41,18 @@
     "build:obix": "npm run babel:validate && npm run babel:test && npx babel src --out-dir dist/obix --config-file ./babel.obix.config.js --extensions \".ts,.tsx\"",
     "build:policy": "npm run prebabel && npx babel src/core/policy --out-dir dist/policy --config-file ./babel.obix.config.js",
     
+    "cli:provider:validate": "npx jest tests/qa/modules/cli-provider --config jest.qa.config.js",
+    "cli:provider:test": "npm run cli:provider:validate && npm run test:unit tests/unit/cli/provider",
+    "cli:provider:integration": "npm run cli:provider:test && npm run test:integration tests/integration/cli-provider",
+    "cli:build": "npx tsc --project tsconfig.cli.json",
+    "cli:build:watch": "npx tsc --project tsconfig.cli.json --watch",
+    "cli:validate": "npx tsc --project tsconfig.cli.json --noEmit",
+    "core:build": "npx tsc --project tsconfig.core.json", 
+    "core:build:watch": "npx tsc --project tsconfig.core.json --watch",
+    "core:validate": "npx tsc --project tsconfig.core.json --noEmit",
+    "build:cli-core": "npm run core:build && npm run cli:build",
+    "build:cli-core:watch": "concurrently \"npm run core:build:watch\" \"npm run cli:build:watch\"",
+    
     "test": "jest",
     "test:watch": "jest --watch",
     "test:coverage": "jest --coverage",
@@ -50,13 +62,36 @@
     "test:integration": "jest tests/integration --config jest.integration.config.js",
     "test:performance": "node scripts/test/performance/index.js",
     "test:ci": "jest --ci --coverage",
+    "test:cli-provider:coverage": "npx jest tests/qa/modules/cli-provider --config jest.qa.config.js --coverage",
+    "test:cli-provider:watch": "npx jest tests/qa/modules/cli-provider --config jest.qa.config.js --watch",
+    "test:cli-provider:debug": "npx jest tests/qa/modules/cli-provider --config jest.qa.config.js --verbose --no-cache",
+    
+    "qa:cli": "npm run cli:provider:validate && npm run cli:validate",
+    "qa:core": "npm run core:validate && npm run test:unit tests/unit/core",
+    "qa:provider-integration": "npm run qa:cli && npm run qa:core && npm run cli:provider:integration",
+    "qa:namespace": "npm run namespace:validate:full",
+    "qa:imports": "npm run imports:validate",
+    "qa:lint": "npm run lint",
+    "qa:test": "npm run test:coverage",
+    "qa:build": "npm run build",
+    "qa:full": "npm run qa:namespace && npm run qa:imports && npm run qa:lint && npm run qa:test && npm run qa:build",
     
     "lint": "eslint src --config config/eslint/base/.eslintrc.js",
     "lint:fix": "eslint src --config config/eslint/base/.eslintrc.js --fix",
+    "lint:cli": "eslint src/cli --config config/eslint/cli/.eslintrc.js",
+    "lint:cli:fix": "eslint src/cli --config config/eslint/cli/.eslintrc.js --fix",
+    "lint:core": "eslint src/core --config config/eslint/core/.eslintrc.js",
+    "lint:core:fix": "eslint src/core --config config/eslint/core/.eslintrc.js --fix",
     "format": "prettier --write \"src/**/*.{ts,tsx,js,jsx}\"",
+    "format:cli": "prettier --write \"src/cli/**/*.{ts,tsx}\"",
+    "format:core": "prettier --write \"src/core/**/*.{ts,tsx}\"",
+    "format:providers": "prettier --write \"src/cli/providers/**/*.{ts,tsx}\" \"src/core/*/providers/**/*.{ts,tsx}\"",
     
     "docs": "typedoc --options config/typedoc.json",
     "docs:serve": "npx serve docs/generated",
+    "docs:cli-provider": "typedoc --options config/typedoc.cli.json src/cli/providers",
+    "docs:core-providers": "typedoc --options config/typedoc.core.json src/core/*/providers",
+    "docs:providers": "npm run docs:cli-provider && npm run docs:core-providers",
     
     "clean": "rimraf dist build coverage reports",
     "clean:all": "rimraf dist build coverage reports node_modules",
@@ -68,11 +103,46 @@
     "validate": "./scripts/setup/dev-workflow.sh validate",
     "validate:babel": "npm run prebabel && npx babel src --out-dir /tmp/babel-test --config-file ./babel.obix.config.js --dry-run",
     "validate:imports": "bash scripts/validate-imports.sh",
+    "validate:cli-provider": "bash scripts/validate-cli-provider.sh",
+    "validate:cli-core-integration": "bash scripts/validate-cli-core-integration.sh",
     
     "setup": "./scripts/setup/dev-setup.sh",
+    "setup:cli-provider": "npm run cli:build && npm run cli:provider:validate",
+    "setup:dev-provider": "npm run setup:cli-provider && npm run dev:integration",
     "benchmark": "node scripts/test/performance/benchmarks.js",
     "example": "node scripts/dev/examples/run.js",
     "cli": "ts-node src/cli/index.ts",
+    
+    "dev:cli": "npm run cli:validate && npm run cli:provider:test",
+    "dev:core": "npm run core:validate && npm run qa:core", 
+    "dev:integration": "npm run dev:cli && npm run dev:core && npm run qa:provider-integration",
+    "dev:validate": "npm run imports:validate && npm run lint && npm run test:unit",
+    "dev:migrate": "npm run imports:fix:auto && npm run dev:validate",
+    "dev:full-check": "npm run namespace:validate:full && npm run test:coverage && npm run lint",
+    
+    "ci:pre-build": "npm run namespace:validate && npm run imports:validate",
+    "ci:validate": "npm run ci:pre-build && npm run lint && npm run test:ci",
+    "ci:build": "npm run ci:validate && npm run build",
+    "ci:cli-provider": "npm run cli:provider:validate && npm run validate:cli-provider",
+    "ci:cli-core": "npm run qa:cli && npm run qa:core && npm run validate:cli-core-integration",
+    "ci:provider-full": "npm run ci:cli-provider && npm run ci:cli-core && npm run build:cli-core",
+    
+    "maintenance:cli-provider": "npm run lint:cli:fix && npm run format:cli && npm run cli:provider:test",
+    "maintenance:core-provider": "npm run lint:core:fix && npm run format:core && npm run qa:core",
+    "maintenance:providers": "npm run maintenance:cli-provider && npm run maintenance:core-provider && npm run format:providers",
+    "maintenance:namespace": "npm run namespace:validate:full && npm run imports:fix:auto",
+    "maintenance:full": "npm run clean && npm run setup && npm run maintenance:namespace && npm run qa:full",
+    
+    "monitor:cli-provider": "npm run test:cli-provider:watch",
+    "monitor:cli-core": "concurrently \"npm run monitor:cli-provider\" \"npm run test:unit:watch tests/unit/core\"",
+    "monitor:imports": "npm run imports:validate && echo 'Import monitoring complete'",
+    
+    "debug:cli-provider": "npm run test:cli-provider:debug",
+    "debug:cli-core-integration": "npm run debug:cli-provider && npm run test:integration:debug tests/integration/cli-provider",
+    
+    "analyze:cli-provider": "bash scripts/analyze-cli-provider.sh",
+    "analyze:cli-core-dependencies": "bash scripts/analyze-cli-core-dependencies.sh",
+    "analyze:modules": "bash scripts/analyze-modules.sh",
     
     "prebuild": "npm run validate:imports && npm run analyze:modules",
     "prebabel": "npx tsc --noEmit --skipLibCheck",
@@ -81,6 +151,8 @@
     
     "release:prepare": "node scripts/release/prepare/index.js",
     "release:publish": "node scripts/release/publish/index.js",
+    "release:cli-provider": "npm run ci:provider-full && npm run docs:providers",
+    "release:prepare:providers": "npm run release:cli-provider && npm run maintenance:providers",
     
     "namespace:validate": "bash scripts/tools/validate-namespace-tree.sh",
     "namespace:validate:full": "bash scripts/tools/obix-namespace-validator.sh",
@@ -94,30 +166,9 @@
     "imports:fix:auto": "npm run namespace:migrate && npm run lint:fix",
     "imports:fix:manual": "npm run namespace:migrate:dry-run && echo 'Review proposed changes before applying'",
     
-    "dev:validate": "npm run imports:validate && npm run lint && npm run test:unit",
-    "dev:migrate": "npm run imports:fix:auto && npm run dev:validate",
-    "dev:full-check": "npm run namespace:validate:full && npm run test:coverage && npm run lint",
-    
-    "ci:pre-build": "npm run namespace:validate && npm run imports:validate",
-    "ci:validate": "npm run ci:pre-build && npm run lint && npm run test:ci",
-    "ci:build": "npm run ci:validate && npm run build",
-    
-    "qa:namespace": "npm run namespace:validate:full",
-    "qa:imports": "npm run imports:validate",
-    "qa:lint": "npm run lint",
-    "qa:test": "npm run test:coverage",
-    "qa:build": "npm run build",
-    "qa:full": "npm run qa:namespace && npm run qa:imports && npm run qa:lint && npm run qa:test && npm run qa:build",
-    
     "util:analyze-modules": "bash scripts/analyze-modules.sh",
     "util:module-metrics": "npm run util:analyze-modules && npm run namespace:report",
-    "util:dependency-graph": "echo 'Generating OBIX framework dependency analysis...' && npm run namespace:validate:full",
-    
-    "maintenance:namespace": "npm run namespace:validate:full && npm run imports:fix:auto",
-    "maintenance:full": "npm run clean && npm run setup && npm run maintenance:namespace && npm run qa:full",
-    "monitor:imports": "npm run imports:validate && echo 'Import monitoring complete'",
-    
-    "analyze:modules": "bash scripts/analyze-modules.sh"
+    "util:dependency-graph": "echo 'Generating OBIX framework dependency analysis...' && npm run namespace:validate:full"
   },
   "keywords": [
     "automaton",
@@ -184,7 +235,46 @@
   "optionalDependencies": {
     "@babel/plugin-syntax-jsx": "^7.23.3"
   },
+  "jest": {
+    "projects": [
+      {
+        "displayName": "CLI Provider QA",
+        "testMatch": ["<rootDir>/tests/qa/modules/cli-provider/**/*.test.{js,ts}"],
+        "setupFilesAfterEnv": ["<rootDir>/tests/qa/setup.js"]
+      },
+      {
+        "displayName": "CLI Unit Tests", 
+        "testMatch": ["<rootDir>/tests/unit/cli/**/*.test.{js,ts}"],
+        "setupFilesAfterEnv": ["<rootDir>/tests/unit/setup.js"]
+      },
+      {
+        "displayName": "Core Unit Tests",
+        "testMatch": ["<rootDir>/tests/unit/core/**/*.test.{js,ts}"],
+        "setupFilesAfterEnv": ["<rootDir>/tests/unit/setup.js"]
+      },
+      {
+        "displayName": "CLI-Core Integration",
+        "testMatch": ["<rootDir>/tests/integration/cli-provider/**/*.test.{js,ts}"],
+        "setupFilesAfterEnv": ["<rootDir>/tests/integration/setup.js"]
+      }
+    ]
+  },
   "lint-staged": {
+    "src/cli/**/*.{ts,tsx}": [
+      "eslint --config config/eslint/cli/.eslintrc.js --fix",
+      "prettier --write",
+      "npm run cli:provider:validate"
+    ],
+    "src/core/**/*.{ts,tsx}": [
+      "eslint --config config/eslint/core/.eslintrc.js --fix", 
+      "prettier --write",
+      "npm run qa:core"
+    ],
+    "src/cli/providers/**/*.{ts,tsx}": [
+      "eslint --config config/eslint/cli/.eslintrc.js --fix",
+      "prettier --write",
+      "npm run cli:provider:test"
+    ],
     "*.{ts,tsx}": [
       "eslint --fix",
       "prettier --write"
