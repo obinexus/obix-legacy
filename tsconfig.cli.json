@@ -25,10 +25,14 @@
       "@cli/test-module/*": ["src/cli/test-module/*"],
       "@cli/command/*": ["src/cli/command/*"],
       
-      /* CLI Command Registry Mappings */
-      "@cli/commands/*": ["src/cli/*/commands/*"],
-      "@cli/handlers/*": ["src/cli/*/handlers/*"],
-      "@cli/services/*": ["src/cli/*/services/*"],
+      /* CLI Command Registry Mappings - Fixed Single Asterisk Compliance */
+      "@cli/analyzer/commands/*": ["src/cli/analyzer/commands/*"],
+      "@cli/bundler/commands/*": ["src/cli/bundler/commands/*"],
+      "@cli/cache/commands/*": ["src/cli/cache/commands/*"],
+      "@cli/compiler/commands/*": ["src/cli/compiler/commands/*"],
+      "@cli/minifier/commands/*": ["src/cli/minifier/commands/*"],
+      "@cli/profiler/commands/*": ["src/cli/profiler/commands/*"],
+      "@cli/policy/commands/*": ["src/cli/policy/commands/*"],
       
       /* Core Dependencies for CLI (Read-Only) */
       "@core/*": ["src/core/*"],
@@ -48,8 +52,13 @@
       "@interfaces/*": ["src/cli/interfaces/*"],
       "@types/*": ["src/cli/types/*"],
       
-      /* Test-Specific Mappings for QA */
-      "@test/cli/*": ["tests/qa/modules/cli-*/*"],
+      /* Test-Specific Mappings for QA - Fixed Single Asterisk Compliance */
+      "@test/cli/analyzer/*": ["tests/qa/modules/cli-analyzer/*"],
+      "@test/cli/bundler/*": ["tests/qa/modules/cli-bundler/*"],
+      "@test/cli/cache/*": ["tests/qa/modules/cli-cache/*"],
+      "@test/cli/compiler/*": ["tests/qa/modules/cli-compiler/*"],
+      "@test/cli/minifier/*": ["tests/qa/modules/cli-minifier/*"],
+      "@test/cli/profiler/*": ["tests/qa/modules/cli-profiler/*"],
       "@test/fixtures/*": ["tests/fixtures/cli/*"],
       "@test/utils/*": ["tests/utils/cli/*"]
     },

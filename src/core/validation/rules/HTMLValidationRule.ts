@@ -1,5 +1,5 @@
 import { ErrorSeverity, ParserError, Position } from "../errors/ValidationError";
-import { ValidationResult } from "../../../../old/dop/dop/ValidationResult";
+import { ValidationResult } from '@core/dop/ValidationResult';
 import { BaseValidationRule, ValidationRule } from "./ValidationRule";
 
 /**

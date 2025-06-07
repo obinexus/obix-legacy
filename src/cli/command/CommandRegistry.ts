@@ -1,6 +1,6 @@
 // src/cli/CommandRegistry.ts
 
-import { ServiceContainer, ServiceLifetime } from '../core/ioc/ServiceContainer';
+import { ServiceContainer, ServiceLifetime } from '@core/ioc/ServiceContainer';
 
 /**
  * Interface for CLI command metadata
