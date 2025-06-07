@@ -7,7 +7,7 @@ export interface apiProvider {
 export class apiProviderImpl implements apiProvider {
   configure(container: ServiceContainer): void {
     // IoC service registration implementation
-    container.register("api", () => new ());
+    container.register("api", () => new apiProviderImpl());
   }
   
   getServices(): string[] {

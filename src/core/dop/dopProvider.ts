@@ -7,7 +7,7 @@ export interface dopProvider {
 export class dopProviderImpl implements dopProvider {
   configure(container: ServiceContainer): void {
     // IoC service registration implementation
-    container.register("dop", () => new ());
+    container.register("dop", () => new dopProviderImpl());
   }
   
   getServices(): string[] {

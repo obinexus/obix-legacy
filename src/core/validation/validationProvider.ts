@@ -7,7 +7,7 @@ export interface validationProvider {
 export class validationProviderImpl implements validationProvider {
   configure(container: ServiceContainer): void {
     // IoC service registration implementation
-    container.register("validation", () => new ());
+    container.register("validation", () => new validationProviderImpl());
   }
   
   getServices(): string[] {

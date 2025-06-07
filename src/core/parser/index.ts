@@ -6,7 +6,6 @@
  */
 
 // Core exports
-export { index.d } from './index.d';
 export { parserProvider } from './parserProvider';
 
 
@@ -14,7 +13,6 @@ export { parserProvider } from './parserProvider';
 export { parserProvider, parserProviderImpl } from './parserProvider';
 
 // Type definitions
-export type { index.d } from './index.d';
 
 
 export default {

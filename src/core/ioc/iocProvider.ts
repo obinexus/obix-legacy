@@ -7,7 +7,7 @@ export interface iocProvider {
 export class iocProviderImpl implements iocProvider {
   configure(container: ServiceContainer): void {
     // IoC service registration implementation
-    container.register("ioc", () => new ());
+    container.register("ioc", () => new iocProviderImpl());
   }
   
   getServices(): string[] {

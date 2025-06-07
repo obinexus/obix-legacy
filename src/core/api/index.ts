@@ -7,14 +7,12 @@
 
 // Core exports
 export { apiProvider } from './apiProvider';
-export { index.d } from './index.d';
 
 
 // IoC Configuration
 export { apiProvider, apiProviderImpl } from './apiProvider';
 
 // Type definitions
-export type { index.d } from './index.d';
 
 
 export default {

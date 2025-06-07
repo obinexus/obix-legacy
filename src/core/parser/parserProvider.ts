@@ -7,7 +7,7 @@ export interface parserProvider {
 export class parserProviderImpl implements parserProvider {
   configure(container: ServiceContainer): void {
     // IoC service registration implementation
-    container.register("parser", () => new ());
+    container.register("parser", () => new parserProviderImpl());
   }
   
   getServices(): string[] {

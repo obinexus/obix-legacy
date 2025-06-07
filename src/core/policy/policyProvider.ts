@@ -7,7 +7,7 @@ export interface policyProvider {
 export class policyProviderImpl implements policyProvider {
   configure(container: ServiceContainer): void {
     // IoC service registration implementation
-    container.register("policy", () => new ());
+    container.register("policy", () => new policyProviderImpl());
   }
   
   getServices(): string[] {

@@ -7,14 +7,12 @@
 
 // Core exports
 export { dopProvider } from './dopProvider';
-export { index.d } from './index.d';
 
 
 // IoC Configuration
 export { dopProvider, dopProviderImpl } from './dopProvider';
 
 // Type definitions
-export type { index.d } from './index.d';
 
 
 export default {

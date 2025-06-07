@@ -7,7 +7,7 @@ export interface commonProvider {
 export class commonProviderImpl implements commonProvider {
   configure(container: ServiceContainer): void {
     // IoC service registration implementation
-    container.register("common", () => new ());
+    container.register("common", () => new commonProviderImpl());
   }
   
   getServices(): string[] {

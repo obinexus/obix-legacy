@@ -7,7 +7,7 @@ export interface astProvider {
 export class astProviderImpl implements astProvider {
   configure(container: ServiceContainer): void {
     // IoC service registration implementation
-    container.register("ast", () => new ());
+    container.register("ast", () => new astProviderImpl());
   }
   
   getServices(): string[] {

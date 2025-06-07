@@ -7,14 +7,12 @@
 
 // Core exports
 export { automatonProvider } from './automatonProvider';
-export { index.d } from './index.d';
 
 
 // IoC Configuration
 export { automatonProvider, automatonProviderImpl } from './automatonProvider';
 
 // Type definitions
-export type { index.d } from './index.d';
 
 
 export default {
