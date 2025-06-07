@@ -95,14 +95,6 @@ class OBIXImportMigrator {
       replacement: "from '@core/$1'",
       priority: 3,
       description: 'Migrate generic core module imports'
-    },
-    
-    // Single-level relative imports within modules
-    {
-      pattern: /from\s+['"]\.\.\/([^'"]*)['"]/g,
-      replacement: "from '@core/$1'",
-      priority: 4,
-      description: 'Migrate single-level relative imports'
     }
   ];
 
@@ -123,9 +115,6 @@ class OBIXImportMigrator {
     };
   }
 
-  /**
-   * Analyze and migrate imports across the OBIX framework
-   */
   async migrateProject(dryRun: boolean = false): Promise<ProjectAnalysis> {
     console.log('🔄 Starting OBIX framework import migration...');
     console.log(`📁 Project root: ${this.projectRoot}`);
@@ -149,10 +138,6 @@ class OBIXImportMigrator {
             this.analysisResult.totalChanges += result.changeCount;
           }
 
-          if (result.status === 'error') {
-            this.analysisResult.errors.push(`${filePath}: ${result.errorMessage}`);
-          }
-
         } catch (error) {
           const errorMessage = error instanceof Error ? error.message : 'Unknown error';
           this.analysisResult.errors.push(`${filePath}: ${errorMessage}`);
@@ -170,9 +155,6 @@ class OBIXImportMigrator {
     }
   }
 
-  /**
-   * Migrate imports in a single file
-   */
   private async migrateFile(filePath: string, dryRun: boolean): Promise<MigrationResult> {
     const content = await readFile(filePath, 'utf-8');
     const originalImports: string[] = [];
@@ -180,7 +162,6 @@ class OBIXImportMigrator {
     let modifiedContent = content;
     let changeCount = 0;
 
-    // Sort migration rules by priority
     const sortedRules = this.migrationRules.sort((a, b) => a.priority - b.priority);
 
     for (const rule of sortedRules) {
@@ -198,7 +179,6 @@ class OBIXImportMigrator {
       }
     }
 
-    // Write the migrated content if not in dry run mode
     if (!dryRun && changeCount > 0) {
       await writeFile(filePath, modifiedContent, 'utf-8');
     }
@@ -212,9 +192,6 @@ class OBIXImportMigrator {
     };
   }
 
-  /**
-   * Recursively find all TypeScript files
-   */
   private async findTypeScriptFiles(directory: string): Promise<string[]> {
     const files: string[] = [];
     
@@ -226,7 +203,6 @@ class OBIXImportMigrator {
         const fileStat = await stat(fullPath);
         
         if (fileStat.isDirectory()) {
-          // Skip node_modules and dist directories
           if (!['node_modules', 'dist', '.git'].includes(entry)) {
             const subFiles = await this.findTypeScriptFiles(fullPath);
             files.push(...subFiles);
@@ -242,9 +218,6 @@ class OBIXImportMigrator {
     return files;
   }
 
-  /**
-   * Generate detailed migration report
-   */
   private generateReport(): void {
     console.log('\n📋 OBIX Framework Import Migration Report');
     console.log('=========================================');
@@ -259,7 +232,6 @@ class OBIXImportMigrator {
       this.analysisResult.errors.forEach(error => console.log(`   ${error}`));
     }
 
-    // Show sample migrations
     const successfulMigrations = this.analysisResult.results.filter(r => r.changeCount > 0);
     if (successfulMigrations.length > 0) {
       console.log('\n🎯 Sample Migrations:');
@@ -277,9 +249,6 @@ class OBIXImportMigrator {
   }
 }
 
-/**
- * CLI interface for the migration tool
- */
 async function main() {
   const args = process.argv.slice(2);
   const dryRun = args.includes('--dry-run');
@@ -290,16 +259,15 @@ async function main() {
 OBIX Framework Import Migration Tool
 ===================================
 
-Usage: ts-node migration-tool.ts [options] [project-root]
+Usage: ts-node import-migration-tool.ts [options] [project-root]
 
 Options:
   --dry-run    Analyze imports without making changes
   --help       Show this help message
 
 Examples:
-  ts-node migration-tool.ts --dry-run
-  ts-node migration-tool.ts /path/to/obix/project
-  ts-node migration-tool.ts --dry-run /path/to/obix/project
+  ts-node import-migration-tool.ts --dry-run
+  ts-node import-migration-tool.ts /path/to/obix/project
 `);
     process.exit(0);
   }
@@ -317,9 +285,8 @@ Examples:
   }
 }
 
-// Execute if run directly
 if (require.main === module) {
   main().catch(console.error);
 }
 
-export { OBIXImportMigrator, ImportMigrationRule, MigrationResult, ProjectAnalysis };
+export { OBIXImportMigrator };
