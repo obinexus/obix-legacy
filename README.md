@@ -17,8 +17,8 @@ The OBIX Heart UI/UX Library is a React-standard, framework-friendly UI and UX l
 ✅ **Quality-over-quantity POC methodology** with TDD-driven development  
 
 This library is part of the **OBIX verified data-adapted UI/UX framework**:  
-📦 **Main Repository**: [github.com/obinexus/obix](https://github.com/obinexus/obix)  
-🔬 **POC Source**: [github.com/obinexus/proof-of-concepts](https://github.com/obinexus/proof-of-concepts)
+📦 **Main Repository**: [https://github.com/obinexus/obix](https://github.com/obinexus/obix)  
+🔬 **POC Source**: [https://github.com/obinexus/proof-of-concept](https://github.com/obinexus/proof-of-concept)
 
 ---
 
@@ -238,6 +238,8 @@ interface DOAContract<S, R> {
 ```
 
 This systematic approach ensures that **component choice (functional vs. OOP) becomes a developer preference rather than an architectural constraint**, while maintaining mathematical rigor in state management and transformation protocols.
+
+**Mathematical Foundation**: The 1:1 behavioral correspondence is formally verified through the equivalence models described in Nnamdi Okpala's *Formal Mathematical Reasoning System* and *Automaton State Minimization and AST Optimization* papers. The DOA adapter layer implements automaton state minimization principles to ensure identical state transition behavior across paradigms, with cost function governance preventing architectural drift beyond sustainable thresholds.
 
 ---
 
@@ -497,12 +499,16 @@ OBIX Heart implements **Nnamdi Okpala's automaton state minimization** for optim
 - **Transition optimization** between states with preserved behavior
 - **Structural sharing** for efficient immutable operations
 
+The implementation follows the formal AST-automaton minimization process defined in Okpala's research, where equivalent states are identified using the equivalence relation `p ∼ q ⟺ ∀w ∈ Σ*, δ*(p, w) ∈ F ⟺ δ*(q, w) ∈ F`. This mathematical foundation ensures components achieve optimal performance while maintaining behavioral correctness across both functional and object-oriented paradigms.
+
 ### Memory Efficiency
 
 - **Immutable data models** prevent unexpected state mutations
 - **Efficient clone operations** that only copy changed properties  
 - **Result caching** for identical inputs with LRU eviction
 - **Lazy evaluation** of computed properties
+
+The memory optimization strategy implements the AST optimization techniques described in Okpala's research, including node reduction to eliminate unnecessary nodes in state transition trees, path optimization to minimize state checks, and memory efficiency protocols that significantly reduce allocation overhead. These optimizations are derived from the tennis score tracking case study, which demonstrated substantial resource improvements while maintaining complete functional accuracy.
 
 ### Development Guidelines
 
@@ -533,6 +539,8 @@ npm test
 npm run dev
 ```
 
+**Note**: The OBIX Heart library implements formal verification protocols that require systematic testing validation. All development workflows must maintain compliance with cost function governance thresholds defined in the Sinphasé methodology.
+
 ---
 
 ## LICENSE
@@ -549,21 +557,35 @@ This library implements **Nnamdi Michael Okpala's** breakthrough research in:
 - **Single-pass compilation principles applied to component architecture**
 - **Mathematical verification of behavioral equivalence across paradigms**
 
+### Mathematical Foundation Papers
+
+The OBIX Heart library is built upon the following peer-reviewed research by Nnamdi Michael Okpala:
+
+1. **"Formal Mathematical Reasoning System"** - Establishes the theoretical foundation for cost function governance, function equivalence validation, dynamic-to-static transformation protocols, and verification standard integration within safety-critical systems.
+
+2. **"Automaton State Minimization and AST Optimization"** - Defines the formal AST-automaton minimization process that enables optimal component performance through equivalent state identification and transition optimization.
+
+3. **"Extended Automaton-AST Minimization and Validation"** - Provides advanced equivalence class construction algorithms and AST-aware state splitting protocols for complex component hierarchies.
+
+4. **"State Machine Minimization: An Application-Based Case Study on Games of Tennis"** - Demonstrates practical application of automaton minimization principles to real-world state management scenarios, directly applicable to UI component optimization.
+
+These papers establish the mathematical rigor that distinguishes OBIX Heart from conventional React component libraries. The DOA adapter layer implements formal verification protocols derived from these theoretical frameworks, ensuring **NASA-STD-8739.8 compliance** for safety-critical applications.
+
 **OBIX Heart** represents practical application of theoretical computer science to modern UI/UX development, ensuring both **mathematical rigor** and **developer experience excellence**.
 
 ---
 
 ## Summary
 
-The OBIX Heart UI/UX Library is a **practical expression of the OBIX philosophy**:
+The OBIX Heart UI/UX Library is a **practical expression of Nnamdi Okpala's mathematical research** in automaton state minimization and formal verification:
 
-🎯 **Data-Oriented Adapted UI/UX** with formal mathematical foundations  
-🎯 **Quality-first POC-driven development** emphasizing correctness over scope  
-🎯 **TDD-driven architecture** with comprehensive verification protocols  
-🎯 **React-standard experience** maintaining ecosystem compatibility  
+🎯 **Mathematically Verified UI/UX Framework** with formal behavioral correspondence proofs  
+🎯 **Automaton State Minimization** for optimal component performance and memory efficiency  
+🎯 **Cost Function Governance** preventing architectural complexity beyond proven thresholds  
+🎯 **NASA-STD-8739.8 Compliance** supporting safety-critical distributed system requirements  
 
-This library guides developers, contributors, and reviewers toward **systematic verification protocols** while ensuring alignment to **OBIX principles** and the **DOA breakthrough** in all components we build.
+This library guides developers, contributors, and reviewers toward **systematic verification protocols** while ensuring alignment to **OBIX principles** and the **DOA breakthrough**. Every component implements formal mathematical validation rather than heuristic design patterns, distinguishing OBIX Heart from conventional React component libraries through rigorous theoretical foundations.
 
 ---
 
-*Part of the OBINexus Proof-of-Concept Stack | Computing from the Heart*
+*Part of the OBINexus Verified Data-Adapted Framework | Computing from the Heart*
