@@ -8,10 +8,10 @@
  * Copyright © 2025 OBINexus Computing
  */
 
-import { ErrorTracker } from "../../ErrorTracker";
-import { ImplementationComparisonResult } from "../../../../old/dop/dop/ImplementationComparisonResult";
+import { ErrorTracker } from '@core/common/errors/ErrorTracker';
+import { ImplementationComparisonResult } from '@core/dop/ImplementationComparisonResult';
 import { ValidationError } from "../errors/ValidationError";
-import { ValidationResult } from "../../../../old/dop/dop/ValidationResult";
+import { ValidationResult } from '@core/dop/ValidationResult';
 import { ValidationRule } from "../rules/ValidationRule";
 
 

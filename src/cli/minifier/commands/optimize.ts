@@ -5,7 +5,7 @@
  */
 
 import { Command } from 'commander';
-import { ServiceContainer } from '../../../core/ioc/containers/ServiceContainer';
+import { ServiceContainer } from '@core/ioc/containers/ServiceContainer';
 import { CommandHandler } from '../../command/CommandRegistry';
 import chalk from 'chalk';
 

@@ -8,7 +8,7 @@
  * Copyright © 2025 OBINexus Computing
  */
 
-import { ValidationResult } from '../../../../old/dop/dop/ValidationResult';
+import { ValidationResult } from '@core/dop/ValidationResult';
 import { ErrorSeverity } from '../errors/ValidationError';
 import { HTMLValidationRule } from './HTMLValidationRule';
 import { CSSValidationRule } from './CSSValidationRule';

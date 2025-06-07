@@ -6,7 +6,7 @@
  */
 
 import { Command } from 'commander';
-import { ServiceContainer } from '../../core/ioc/containers/ServiceContainer';
+import { ServiceContainer } from '@core/ioc/containers/ServiceContainer';
 import { CommandRegistry } from '../command/CommandRegistry';
 import { ProfileCommand } from './commands/profile';
 import { ReportCommand } from './commands/report';

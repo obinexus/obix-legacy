@@ -1,7 +1,7 @@
 // src/cli/compiler/commands/CompileCommand.ts
 
 import { BaseCommand, CommandCategory, CommandMetadata } from '../../CommandRegistry';
-import { ServiceContainer } from '../../../core/ioc/containers/ServiceContainer';
+import { ServiceContainer } from '@core/ioc/containers/ServiceContainer';
 import * as fs from 'fs';
 import * as path from 'path';
 

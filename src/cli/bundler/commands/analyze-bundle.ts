@@ -10,8 +10,8 @@
 import chalk from 'chalk';
 import { Command } from 'commander';
 import { CommandHandler } from '../../CommandHandler';
-import { ServiceContainer } from '../../../core/ioc/ServiceContainer';
-import { StateMachineMinimizer } from '../../../core/automaton/minimizer';
+import { ServiceContainer } from '@core/ioc/ServiceContainer';
+import { StateMachineMinimizer } from '@core/automaton/minimizer';
 
 /**
  * Command handler for the analyze-bundle command
