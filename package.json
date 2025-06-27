@@ -168,7 +168,9 @@
     
     "util:analyze-modules": "bash scripts/analyze-modules.sh",
     "util:module-metrics": "npm run util:analyze-modules && npm run namespace:report",
-    "util:dependency-graph": "echo 'Generating OBIX framework dependency analysis...' && npm run namespace:validate:full"
+    "util:dependency-graph": "echo 'Generating OBIX framework dependency analysis...' && npm run namespace:validate:full",
+    "sinphase:validate": "ts-node scripts/sinphase-validator.ts",
+    "qa:matrix": "jest tests/qa --config jest.qa.config.js"
   },
   "keywords": [
     "automaton",
