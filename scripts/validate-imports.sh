@@ -3,7 +3,7 @@
 # Enhanced with absolute path resolution and namespace enforcement
 # Eliminates path ambiguity through concrete directory anchoring
 
-set -euo pipefail
+set -eo pipefail
 
 # ABSOLUTE PATH RESOLUTION - Eliminates dangling reference semantics
 readonly SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
