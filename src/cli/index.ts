@@ -8,6 +8,7 @@
 // Core exports
 export { cliProvider } from './cliProvider';
 export { main } from './main';
+export * from './consumer';
 
 
 // IoC Configuration
