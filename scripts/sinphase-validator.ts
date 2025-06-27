@@ -1,4 +1,5 @@
-import { ServiceContainer } from './src/core/ioc/containers/ServiceContainer';
+// Use path alias for clarity and ts-node support
+import { ServiceContainer } from '@core/ioc/containers/ServiceContainer';
 
 function run() {
   const container = new ServiceContainer();
