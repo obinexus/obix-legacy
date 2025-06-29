@@ -3,11 +3,17 @@
 # Enhanced with absolute path resolution and namespace enforcement
 # Eliminates path ambiguity through concrete directory anchoring
 
-set -euo pipefail
+set -eo pipefail
 
 # ABSOLUTE PATH RESOLUTION - Eliminates dangling reference semantics
 readonly SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
 readonly PROJECT_ROOT="$(cd "$SCRIPT_DIR/.." && pwd)"
+
+# Ensure script is run from project root or adjust paths accordingly
+if [ ! -d "$SCRIPT_DIR" ] || [ ! -d "$PROJECT_ROOT/src" ]; then
+    echo -e "\033[0;31m[ARCHITECTURAL-ERROR]\033[0m [$(date '+%Y-%m-%d %H:%M:%S')] Project source directory not found at $PROJECT_ROOT/src"
+    exit 1
+fi
 
 # CONCRETE NAMESPACE ANCHORS - Hardcoded absolute path frame of reference
 readonly OBIX_SRC_ROOT="$PROJECT_ROOT/src"
