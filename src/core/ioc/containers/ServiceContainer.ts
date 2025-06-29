@@ -358,6 +358,29 @@ export class ServiceContainer {
       child.aliases.set(alias, target);
     }
     
+ rn0lhh-codex/perform-obix-doa-analysis-and-implementation-planning
+    return child;
+  }
+
+  /**
+   * Validate Sinphasé governance compliance. This is a lightweight
+   * implementation that checks the number of registered bindings
+   * against a complexity threshold. Real implementations would
+   * incorporate deeper analysis of dependency graphs and temporal
+   * pressure costs.
+   */
+  public validateSinphaseCompliance(threshold = 0.5): {
+    cost: number;
+    compliant: boolean;
+  } {
+    const complexity = this.bindings.size * 0.01;
+    const cost = complexity;
+    return {
+      cost,
+      compliant: cost <= threshold,
+    };
+  }
+}
     return child;
   }
 

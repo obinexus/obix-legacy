@@ -57,6 +57,7 @@
       "@tools/*": ["src/tools/*"],
       "@config/*": ["src/core/config/*"],
       "@qa/*": ["src/qa/*"],
+
       
       /* Test Mappings */
       "@test/*": ["tests/*"],
@@ -93,8 +94,7 @@
     "**/*.spec.ts"
   ]
 }
-=======
-{
+,{
   "compilerOptions": {
     /* Core Configuration */
     "target": "ES2018",
